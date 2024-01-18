@@ -1,11 +1,17 @@
-import Button from "./Button"
-const name = ["All","Mixes", "Cameras","Javascript","Data Structures","Music","News","Live","Flight","T-Series","Electrical Engineering","Automation Test"]
+
+import Button from "./Button";
+
+
+const name = ["Gaming","New", "Vlogs","Javascript","Data Structures","Music","Festival","Comedy","Trip","Cricket","Electrical Engineering","Automation Engineer"]
+
+
 
 const Buttonlist = () => {
+  
   return (
-    <>
-   {name.map((name)=>{return <Button name1={name}/>})}
-    </>
+    <div className="flex">
+   {name.map((name,indexes)=>{return <Button key={indexes} name1={name}  />})}
+    </div>
   )
 }
 

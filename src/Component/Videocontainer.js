@@ -3,15 +3,17 @@ import VideoCard from './VideoCard';
 import { Link } from 'react-router-dom';
 import { AdCard } from './VideoCard';
 import  useFilteredVideo from "../utils/useFilteredVideo"
+import { useSelector } from 'react-redux';
 
 
 const Videocontainer = () => {
   
-  let {filterVideo,video} = useFilteredVideo();
+  let {video} = useFilteredVideo();
+  const filterVideo = useSelector(store=>store.filter.filterVideo);
 
- console.log(JSON.stringify(filterVideo));
+//  console.log(JSON.stringify(filterVideo));
  
-  const condition = filterVideo.length > 0 ? filterVideo : video;
+  const condition = filterVideo?.length > 0 ? filterVideo : video;
   
   return  (
     <div className='flex flex-wrap'>

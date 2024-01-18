@@ -4,6 +4,7 @@ import {toggle} from "../utils/cartSlice";
 import { YOUTUBE_SEARCH_API } from "../utils/Config";
 import { extractCache } from "../utils/cacheSlice";
 import useFilteredVideo from "../utils/useFilteredVideo";
+import { addFilteredVideo } from "../utils/filterSlice";
 
 
 const handleSearchClick = (filterVideo,search)=>{
@@ -14,13 +15,14 @@ const handleSearchClick = (filterVideo,search)=>{
    };
 const Header = ()=>{
     
-    let {video,filterVideo,setFilterVideo} = useFilteredVideo();
+    let {video} = useFilteredVideo();
+    
       
     const [searchSuggestion, setSearchSuggestion]= useState([]);
     const [showSuggestion, setShowSuggestion]= useState(false);
     let [search,setSearch] = useState("");
 
-    console.log("Header : -" + filterVideo);
+    // console.log("Header : -" + filterVideo);
     
     const dispatch = useDispatch();
     const toggleHandler = ()=>{
@@ -44,7 +46,7 @@ const Header = ()=>{
     },[search]);
     
     const getSearchSuggestion = async ()=>{
-        console.log("API - " + search )
+        // console.log("API - " + search )
         const data = await fetch(YOUTUBE_SEARCH_API + search);
         const json = await data.json();
         setSearchSuggestion(json[1]);
@@ -67,9 +69,9 @@ const Header = ()=>{
      <div className="relative">
         <input type="text" className=" h-8 w-1/2 border-2 rounded-l-full pl-10"  value={search} onChange={(e)=>{setSearch(e.target.value)}} onFocus={()=>{setShowSuggestion(true)}} onBlur={()=>{setShowSuggestion(false)}} />
         <button className="w-8 h-8 border-2 p-2 rounded-r-full" onClick={()=>{ const data = handleSearchClick(video,search);
-            console.log(data)
-            setFilterVideo(data)
-            console.log("Header" +filterVideo)}}>
+        dispatch(addFilteredVideo(data));
+        setSearch('');
+        }}>
     <img alt="search-icon"  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQO3vAp3RACb6sS2WgSJ4RaLkkTAsiv7JVFVg&usqp=CAU"/></button>
      </div>
      {showSuggestion && <div className="absolute bg-white ml-[17rem] w-[33rem]">

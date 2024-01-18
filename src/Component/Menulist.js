@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Menulist = ()=>{
     const isVisible = useSelector((store)=>store.cart.isMenuVisible);
-  console.log(isVisible);
+//   console.log(isVisible);
     if(!isVisible) return null;
 return(
     <div className="col-span-1">
